@@ -1,1 +1,55 @@
 \section{実験方法}
+
+\subsection{実験1}
+\begin{table}[htbp]
+    \centering
+    \caption{手動操作によるダイオードの電圧-電流特性の計測}
+    \label{tab:setting}
+    \small
+    \begin{tabular}{l|c|c}
+        \hline\hline
+        計測機器名&設定SW&設定状態\\
+        \hline
+        \multirow{3}{*}{ファンクションジェネレータ}&FCTN&DC\\ \cline{2-3}
+                                                &MODE&Continuous\\ \cline{2-3}
+                                                &出力インピーダンス設定&High-z\\
+        \hline
+        \multirow{2}{*}{ディジダルマルチメータ}&MODE&DCV\\ \cline{2-3}
+                                            &RANGE&10$\mathrm{V}$\\
+        \hline
+    \end{tabular}
+\end{table}
+
+\subsection{実験2}
+
+\begin{table}[htbp]
+	\centering
+	\caption{VISA書き込み関数を利用したコマンド送信VIの作成}
+	\label{tab:autosettting_w}
+	\small
+	\begin{tabular}{l|l}
+		\hline\hline
+		計測機器&ファンクションジェネレータ\\ \hline
+		VISAリソース名&USB0::0x0D4A::0x000D::9219781::INSTR\\ \hline
+		設定コマンド&:FUNC SIN;:VOLT 1;:VOLT:OFFS 0\\ \hline
+		数値設定文字列&FREQ:FIX \%f \\ \hline
+		数値&1000 \\
+		\hline
+	\end{tabular}
+\end{table}
+
+
+\begin{table}[htbp]
+	\centering
+	\caption{VISA書き込み関数を利用したコマンド受信VIの作成}
+	\label{tab:autosettting_r}
+	\small
+	\begin{tabular}{c|c|c}
+		\hline\hline
+		計測機器&VISAリソース名&設定コマンド\\
+		ディジタルマルチメータ&USB0::0x2A8D::0xB318::MY57410006::INSTR&:MEAS*VOLT:AC? \\
+		\hline
+	\end{tabular}
+\end{table}
+
+\subsection{実験3}

@@ -4,14 +4,15 @@
  head_space=30mm,
  foot_space=30mm,
  gutter=25mm,
- fore_edge=25mm,
- line_gap=7pt,
- paragraph_gap=0pt]{jlreq}
-
+ fore_edge=25mm
+]{jlreq}
 % 設定と書式をロード
 \input{config}
 \input{preamble}
 
+\AtBeginDocument{
+  \fontsize{11pt}{18pt}\selectfont
+}
 \title{\expTitle}
 \author{\studentID \quad \studentName}
 \date{\today}
