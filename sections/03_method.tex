@@ -1,6 +1,20 @@
 \section{実験方法}
 
 \subsection{実験1}
+実験1では, ダイオード-抵抗直列回路の電圧電流特性を手動で計測した。
+測定に際して, 回路は図\ref{fig:circuit1}のように組んだ。
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\columnwidth]{src/elect.pdf}
+    \caption{実験1の測定回路図}
+    \label{fig:circuit1}
+\end{figure}
+ただし, 実験1で用いたダイオードはシリコンダイオードである。
+
+また, 回路以降の実験2~4に関しても同様の回路でファンクションジェネレータやダイオードの種類を変えて実験を行った。
+
+
+実験1でのファンクションジェネレータおよびディジタルマルチメータの設定は表\ref{tab:setting}のようにした。
 \begin{table}[htbp]
     \centering
     \caption{手動操作によるダイオードの電圧-電流特性の計測}
@@ -20,8 +34,18 @@
     \end{tabular}
 \end{table}
 
+以上の条件下で, ファンクションジェネレータの設定電圧を
+\[
+[-2.0, -1.5, -1.0, -0.5, 0.0, 0.2, 0.4, 0.5, 0.6, 0.8, 1.0, 1.5, 2.0]
+\]
+の13段階でスイープし, ディジタルマルチメータに表示値を読み取った。
+
 \subsection{実験2}
 
+実験2ではVISA書き込み関数, 読み取り関数によってコマンド送信VI, 受信VIを作成し, 
+ファンクションジェネレータおよびディジタルマルチメータとの接続, 動作確認を行った。
+表\ref{tab:autosettting_r}および, 表\ref{tab:autosettting_w}は
+それぞれ書き込み関数, 読取関数の設定についてまとめたものである。
 \begin{table}[htbp]
 	\centering
 	\caption{VISA書き込み関数を利用したコマンド送信VIの作成}
@@ -37,19 +61,22 @@
 		\hline
 	\end{tabular}
 \end{table}
-
+表\ref{tab:autosettting_r}のように, ファンクションジェネレータには周波数$1000\mathrm{HZ}$固定の交流電圧を
+RANGEが$1 \, \mathrm{V}$(振幅が$0.5 \, \mathrm{V}$)で入力させるようにコマンド送信VIを作成した。
 
 \begin{table}[htbp]
 	\centering
-	\caption{VISA書き込み関数を利用したコマンド受信VIの作成}
+	\caption{VISA読み取り関数を利用したコマンド受信VIの作成}
 	\label{tab:autosettting_r}
 	\small
-	\begin{tabular}{c|c|c}
+	\begin{tabular}{l|l}
 		\hline\hline
-		計測機器&VISAリソース名&設定コマンド\\
-		ディジタルマルチメータ&USB0::0x2A8D::0xB318::MY57410006::INSTR&:MEAS*VOLT:AC? \\
-		\hline
+		計測機器&ディジタルマルチメータ\\ \hline
+		VISAリソース名&USB0::0x2A8D::0xB318::MY57410006::INSTR\\ \hline
+		設定コマンド&:MEAS*VOLT:AC? \\\hline
 	\end{tabular}
 \end{table}
+コマンド受信VI側では表\ref{tab:autosettting_r}のようにディジタルマルチメータと接続して,
+交流電源の実効値を測定するように設定した。
 
 \subsection{実験3}
